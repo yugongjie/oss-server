@@ -1,6 +1,6 @@
 # OSS-Server
 
-A visualization tool for Alibaba Cloud Object Storage Service ((OSS)[https://intl.aliyun.com/product/oss]), which actually run a node.js server on local, so you can call your OSS service on web page intuitively.
+A visualization tool for Alibaba Cloud Object Storage Service ([OSS](https://intl.aliyun.com/product/oss)), which actually run a node.js server on local, so you can call your OSS service on web page intuitively.
 
 ## Setup
 
@@ -19,4 +19,4 @@ Then open your browser and go to ```http://localhost:8051```.
 
 ### MIT License
 
-(OSS in Browser)[https://github.com/rockuw/oss-in-browser] is used as reference for oss page.
+[OSS in Browser](https://github.com/rockuw/oss-in-browser) is used as reference for oss page.
