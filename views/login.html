@@ -1,0 +1,29 @@
+<html>
+<head>
+  <title>OSS Server Login</title>
+</head>
+<body>
+<form action="/LoginFuckingOss" method="post">
+<h1> OSS Server - Login </h1>
+<br>
+Access key ID:
+<input type="text" placeholder="Your key ID" name="accessKeyId">
+Access key secret:
+<input type="password" placeholder="Your key secret" name="accessKeySecret">
+Region:
+<input type="text" placeholder="Your region" name="region">
+Bucket:
+<input type="text" placeholder="Your bucket" name="bucket">
+<input type="submit" name="Login">
+</form>
+</body>
+
+<script type="text/javascript">
+function validate() {
+	var keyId = document.getElementById("accessKeyId").value;
+	var keySecret = document.getElementById("accessKeySecret").value;
+	var region = document.getElementById("region").value;
+	var bucket = document.getElementById("bucket").value;
+}
+</script>
+</html>

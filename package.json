@@ -1,0 +1,23 @@
+{
+  "name": "oss-server",
+  "version": "0.0.1",
+  "description": "koa sample",
+  "main": "index.js",
+  "scripts": {
+    "start": "node --harmony app.js",
+    "s": "node --harmony app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "John Chou",
+  "license": "MIT",
+  "dependencies": {
+    "ali-oss": "^4.5.0",
+    "co": "^4.6.0",
+    "koa": "~1.2.4",
+    "koa-bodyparser": "^2.2.0",
+    "koa-render": "~0.2.1",
+    "koa-router": "~5.4.0",
+    "koa-static": "~2.0.0"
+  },
+  "devDependencies": {}
+}
