@@ -31,15 +31,24 @@ app.use(views(__dirname + '/views', {
 }));
 app.use(serve(__dirname + '/public'));
 
+var loginFlag = 'fail';
 router
   .get('/', function *() {
 	this.body = yield this.render('login');
   })
+  .get('/loginCheck', function * () {
+    this.body = loginFlag;
+	loginFlag = 'fail';
+  })
   .post('/loginFuckingOss', function * () {
 	var _this = this;
-	//TODO: Login error handling
 	co(function *() {
-		yield *ossLogin(_this.request.body);
+		if (yield *ossLogin(_this.request.body)) {
+			console.log('Login sucess!');
+			loginFlag = 'success';
+		}else {
+			console.log('Login failed!');
+		}
 	}).catch(function (err) {
 		console.log(err);
 	});
@@ -57,9 +66,11 @@ function *ossLogin(data) {
 	ossConfig.bucket = data.bucket;
 	var client = oss(ossConfig);
 	var result = yield client.list({
-		'max-keys': 20
+		'max-keys': 1
 	});
-	console.log(result);
+	if (result.res) {
+		return true;
+	}
 }
  
 // error
@@ -68,4 +79,4 @@ app.on('error', function(err){
  });
 
 app.listen(PORT);
-console.log('listening on port ', PORT);
+console.log('listening on port: ', PORT);

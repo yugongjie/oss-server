@@ -5,7 +5,6 @@
   "main": "index.js",
   "scripts": {
     "start": "node --harmony app.js",
-    "s": "node --harmony app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "John Chou",
