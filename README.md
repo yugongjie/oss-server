@@ -2,6 +2,11 @@
 
 A visualization tool for Alibaba Cloud Object Storage Service ([OSS](https://intl.aliyun.com/product/oss)), which actually run a node.js server on local, so you can call your OSS service on web page intuitively.
 
+## Features
+
+- Login check.
+- List files.
+
 ## Setup
 
 All you have to do is run these commands:
@@ -12,8 +17,9 @@ Then open your browser and go to ```http://localhost:8051```.
 
 ## TODO
 
-- Validation for login and error alarm.
-- Click handlers for frontend.
+- Save login data to session.
+- Support list setting, like max keys.
+- Beautify list table, it's suck now.
 
 ## License
 

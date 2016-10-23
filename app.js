@@ -30,26 +30,36 @@ app.use(views(__dirname + '/views', {
 }));
 app.use(serve(__dirname + '/public'));
 
-var ossConfig = {};
+var ossConfig = {}, client;
 router
   .get('/', function *() {
 	this.body = yield this.render('login');
   })
-  .post('/loginFuckingOss', function * () {
-		var _this = this;
-		ossConfig = _this.request.body;
-		var client = oss(ossConfig);
+  .post('/loginFuckingOss', function *() {
+		ossConfig = this.request.body;
+		client = oss(ossConfig);
 
 		try {
 			var result = yield client.list({
 				'max-keys': 1
 			});
-			_this.body = yield _this.render('index');
+			this.body = yield this.render('index');
 		} catch(e) {
-			_this.body = e;
+			this.body = e;
 		}
 
-  });
+  })
+	.post('/getFuckingList', function *() {
+		var listForm = this.request.body;
+		console.log(listForm);
+
+		try {
+			this.body = yield client.list(listForm);
+		} catch(e) {
+			console.log(e);
+		}
+
+	});
 app
   .use(router.routes())
   .use(router.allowedMethods());
