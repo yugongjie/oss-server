@@ -3,8 +3,7 @@ var koa = require('koa'),
 	views = require('koa-render'),
 	bodyParser = require('koa-bodyparser'),
 	serve = require('koa-static'),
-	oss = require('ali-oss'),
-	co = require('co');
+	oss = require('ali-oss');
 const PORT = 8051;
 
 var app =  koa();
@@ -31,48 +30,30 @@ app.use(views(__dirname + '/views', {
 }));
 app.use(serve(__dirname + '/public'));
 
-var loginFlag = 'fail';
+var ossConfig = {};
 router
   .get('/', function *() {
 	this.body = yield this.render('login');
   })
-  .get('/loginCheck', function * () {
-    this.body = loginFlag;
-	loginFlag = 'fail';
-  })
   .post('/loginFuckingOss', function * () {
-	var _this = this;
-	co(function *() {
-		if (yield *ossLogin(_this.request.body)) {
-			console.log('Login sucess!');
-			loginFlag = 'success';
-		}else {
-			console.log('Login failed!');
+		var _this = this;
+		ossConfig = _this.request.body;
+		var client = oss(ossConfig);
+
+		try {
+			var result = yield client.list({
+				'max-keys': 1
+			});
+			_this.body = yield _this.render('index');
+		} catch(e) {
+			_this.body = e;
 		}
-	}).catch(function (err) {
-		console.log(err);
-	});
-	this.body = yield this.render('index');
+
   });
 app
   .use(router.routes())
   .use(router.allowedMethods());
 
-var ossConfig = {};
-function *ossLogin(data) {
-	ossConfig.accessKeyId = data.accessKeyId;
-	ossConfig.accessKeySecret = data.accessKeySecret;
-	ossConfig.region = data.region;
-	ossConfig.bucket = data.bucket;
-	var client = oss(ossConfig);
-	var result = yield client.list({
-		'max-keys': 1
-	});
-	if (result.res) {
-		return true;
-	}
-}
- 
 // error
 app.on('error', function(err){
   log.error('server error', err);
